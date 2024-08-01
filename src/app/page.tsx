@@ -1,95 +1,97 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import { createOpenAI } from "@ai-sdk/openai";
+import { streamText } from "ai";
+import styles from "./page.module.scss";
+import React, { useState, useRef, useEffect } from "react";
+import Chart from "@/components/organisms/Chart";
+import Search from "@/components/organisms/Search";
+import APIKey from "@/components/organisms/APIKey";
+import Ad from "@/components/atoms/Ad";
+import Logs from "@/components/organisms/Logs";
+import { prompt } from "@/libs/prompt";
+import { Toaster, toast } from "sonner";
+import Spinner from "@/components/atoms/Spinner";
+import { data } from "@/json/data";
+import { extractJSON } from "@/libs/extractJSON";
+import Film from "@/components/organisms/Film";
 
 export default function Home() {
+  const textAreaRef = useRef<any>(null);
+  const [spinner, setSpinner] = useState(true);
+  const [apiKey, setApiKey] = useState("");
+  const [modelInput, setModelInput] = useState("llama-3-sonar-small-32k-chat");
+  const [search, setSearch] = useState("");
+  const [isStreaming, setIsStreaming] = useState(false);
+  const [response, setResponse] = useState("");
+
+  // Configuración del proveedor de OpenAI con la clave de API
+  const openaiProvider = createOpenAI({
+    apiKey: apiKey,
+    baseURL: "https://api.perplexity.ai",
+    compatibility: "compatible", // Modo estricto para usar la API de OpenAI
+  });
+
+  const fetchStreamingText = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (apiKey.length === 0) {
+      toast("Debes introducir tu Perplexity API Key");
+      window.scrollTo(0, 0);
+      return;
+    }
+    setIsStreaming(true);
+    try {
+      const model = openaiProvider.chat(modelInput);
+      const { textStream } = await streamText({
+        model: model,
+        prompt: prompt("", 0),
+      });
+      let accumulatedText = "";
+      for await (const textPart of textStream) {
+        accumulatedText += textPart;
+        setResponse(accumulatedText);
+        // Scroll to the bottom to show the latest text
+        if (textAreaRef.current) {
+          textAreaRef.current.scrollTop = textAreaRef.current.scrollHeight;
+        }
+      }
+    } catch (error) {
+      toast("Error solicitando los datos.");
+    } finally {
+      setIsStreaming(false);
+    }
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setSpinner(false);
+    }, 500);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  //   console.log(data);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className={styles.main}>
+      <APIKey apiKey={apiKey} setApiKey={setApiKey} modelInput={modelInput} setModelInput={setModelInput} />
+      <Search
+        search={search}
+        setSearch={setSearch}
+        fetchStreamingText={fetchStreamingText}
+        setIsStreaming={setIsStreaming}
+      />
+      {/* <Chart response={response} isStreaming={isStreaming} /> */}
+      {data.slice(0, 200).map((i) => (
+        <Film film={i} />
+      ))}
+      {/* <Logs response={response} textAreaRef={textAreaRef} /> */}
+      {/* <Ad /> */}
+      <Toaster style={{ fontFamily: "var(--motiva400)" }} />
+      {spinner && (
+        <div className={styles.loader}>
+          <Spinner />
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      )}
+    </div>
   );
 }

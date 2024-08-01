@@ -1,0 +1,19 @@
+[
+  { "value": "", "name": "Género" },
+  { "value": "msc-accion", "name": "Acción" },
+  { "value": "msc-animacion", "name": "Animación" },
+  { "value": "msc-anime", "name": "Anime" },
+  { "value": "msc-aventura", "name": "Aventura" },
+  { "value": "msc-belico", "name": "Bélico" },
+  { "value": "msc-ciencia-ficcion", "name": "Ciencia ficción" },
+  { "value": "msc-comedia", "name": "Comedia" },
+  { "value": "msc-documental", "name": "Documental" },
+  { "value": "msc-drama", "name": "Drama" },
+  { "value": "msc-fantasia", "name": "Fantasía" },
+  { "value": "msc-intriga", "name": "Intriga" },
+  { "value": "msc-romance", "name": "Romance" },
+  { "value": "msc-terror", "name": "Terror" },
+  { "value": "msc-thriller", "name": "Thriller" },
+  { "value": "msc-western", "name": "Western" },
+  { "value": "msc-series-tv", "name": "Series TV" }
+]
