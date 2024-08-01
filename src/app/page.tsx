@@ -82,7 +82,7 @@ export default function Home() {
       />
       {/* <Chart response={response} isStreaming={isStreaming} /> */}
       {data.slice(0, 200).map((i) => (
-        <Film film={i} />
+        <Film key={i.id} film={i} />
       ))}
       {/* <Logs response={response} textAreaRef={textAreaRef} /> */}
       {/* <Ad /> */}
