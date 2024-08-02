@@ -1,5 +1,5 @@
-export function findBigNumber(arr: any, value: number) {
-  const data = arr.map((i: any) => i.close - 5620);
+export function findBigNumber(arr: any, field: string, value: number) {
+  const data = arr.map((i: any) => i[field]);
   if (data.length === 0) {
     return undefined; // Manejar el caso de un array vacío
   }

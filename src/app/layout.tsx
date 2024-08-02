@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { motiva300, motiva400, motiva500, motiva700, motiva1000 } from "@/fonts/fontsConfig";
 
 export const metadata: Metadata = {
-  title: "SP500 PREDICTOR",
-  description: "Una webapp que predice los valores futors del sp500 usando IA.",
+  title: "ProducerGO",
+  description: "Herramienta para analizar el rendimiento economico de las películas.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

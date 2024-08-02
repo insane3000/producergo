@@ -14,6 +14,26 @@ import Spinner from "@/components/atoms/Spinner";
 import { data } from "@/json/data";
 import { extractJSON } from "@/libs/extractJSON";
 import Film from "@/components/organisms/Film";
+import styled from "styled-components";
+
+const TemporalSt = styled.div`
+  width: 100%;
+  height: auto;
+  /* background: #09090b;
+  border: 1px solid #2c2c2c; */
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  /* padding: 1rem; */
+  display: grid;
+  grid-template-columns: 100%;
+  grid-auto-rows: max-content;
+  gap: 1rem;
+  margin-top: 2rem;
+  /* overflow-y: scroll; */
+  // !Scroll style
+  scrollbar-color: #4d4d4d69 transparent;
+  scrollbar-width: thin;
+`;
 
 export default function Home() {
   const textAreaRef = useRef<any>(null);
@@ -81,9 +101,12 @@ export default function Home() {
         setIsStreaming={setIsStreaming}
       />
       {/* <Chart response={response} isStreaming={isStreaming} /> */}
-      {data.slice(0, 200).map((i) => (
-        <Film key={i.id} film={i} />
-      ))}
+
+      <TemporalSt>
+        {data.slice(0, 100).map((i) => (
+          <Film key={i.id} film={i} />
+        ))}
+      </TemporalSt>
       {/* <Logs response={response} textAreaRef={textAreaRef} /> */}
       {/* <Ad /> */}
       <Toaster style={{ fontFamily: "var(--motiva400)" }} />
