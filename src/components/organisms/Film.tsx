@@ -9,20 +9,18 @@ const FilmSt = styled.div`
   border: 1px solid #2c2c2c;
   border-radius: 0.5rem;
   background: #2121215f;
-  /* justify-content: center;
-    align-content: center; */
   overflow: hidden;
-  position: relative;
   display: flex;
   background-image: linear-gradient(#1717179e 1px, transparent 0.1rem),
     linear-gradient(90deg, #1717179e 1px, transparent 0.1rem);
   background-size: 1rem 1rem;
   background-position: bottom;
+  position: relative;
   &:hover {
     transition: 0.1s;
     background: #3232325f;
   }
-  .chart_gradient {
+  .data_gradient {
     width: 100%;
     height: 100%;
     background: #09090b;
@@ -30,12 +28,13 @@ const FilmSt = styled.div`
     position: absolute;
   }
   .data {
-    z-index: 1;
     width: 100%;
     height: 100%;
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: calc(100% - 2.5rem) 2.5rem;
+    position: relative;
+
     .top {
       padding: 0.5rem;
       display: grid;
@@ -217,7 +216,7 @@ interface props {
 export default function Film(props: props) {
   return (
     <FilmSt>
-      <div className="chart_gradient"></div>
+      <div className="data_gradient"></div>
       <div className="data">
         <div className="top">
           <img
