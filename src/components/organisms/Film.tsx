@@ -138,7 +138,7 @@ const FilmSt = styled.div`
       border-top: 1px solid #2c2c2c;
       /* background: #27272a60; */
       display: grid;
-      grid-template-columns: calc(100% - 12rem) 12rem;
+      grid-template-columns: calc(100% - 8rem) 8rem;
       grid-template-rows: 100%;
       align-content: center;
       justify-items: center;
@@ -171,11 +171,12 @@ const FilmSt = styled.div`
         width: 100%;
         height: 100%;
         display: grid;
-        grid-template-columns: 5rem 5rem;
+        grid-template-columns: 100%;
         grid-template-rows: 1.5rem;
-        gap: 0.5rem;
+        /* gap: 0.5rem; */
         justify-content: center;
         align-content: center;
+        padding: 0 0.5rem;
         .button {
           width: 100%;
           height: 100%;
@@ -212,6 +213,7 @@ const FilmSt = styled.div`
 `;
 interface props {
   film: FilmIT;
+  currentData: FilmIT[];
 }
 export default function Film(props: props) {
   return (
@@ -230,7 +232,7 @@ export default function Film(props: props) {
               <div
                 className="percentage radiant_bg"
                 style={{
-                  width: `${findBigNumber(data.slice(0, 1000), "revenue", props.film.revenue)}%`,
+                  width: `${findBigNumber(props.currentData, "revenue", "budget", props.film.revenue)}%`,
                   //   background: "#2662d9",
                 }}
               ></div>
@@ -240,7 +242,7 @@ export default function Film(props: props) {
               <div
                 className="percentage dire_bg"
                 style={{
-                  width: `${findBigNumber(data.slice(0, 1000), "revenue", props.film.budget)}%`,
+                  width: `${findBigNumber(props.currentData, "revenue", "budget", props.film.budget)}%`,
                   //   background: "#e23670",
                 }}
               >
@@ -298,8 +300,8 @@ export default function Film(props: props) {
           </div>
 
           <div className="buttons_container">
-            <div className="button">Similares</div>
-            <div className="button white">Analizar</div>
+            {/* <div className="button">Similares</div> */}
+            <div className="button white">Analizar con IA</div>
           </div>
         </div>
       </div>

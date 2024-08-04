@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${motiva1000.variable} ${motiva300.variable} ${motiva400.variable} ${motiva500.variable} ${motiva700.variable}  ${motiva1000.variable}`}
       >
-        <main className="main">{children}</main>
+        <main className="layout">{children}</main>
       </body>
     </html>
   );

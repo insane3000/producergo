@@ -3,7 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import { IoMdAdd } from "react-icons/io";
 import styled from "styled-components";
 import folders from "../../json/folders.json";
-const SearchSt = styled.form`
+const SearchSt = styled.div`
   width: 100%;
   height: auto;
 
@@ -18,7 +18,7 @@ const SearchSt = styled.form`
     height: 2rem;
     /* margin-bottom: 1rem; */
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-template-rows: 2rem;
     gap: 0.5rem;
     margin-bottom: 1rem;
@@ -118,10 +118,14 @@ interface props {
   setSearch: (key: string) => void;
   fetchStreamingText: (e: React.FormEvent<HTMLFormElement>) => void;
   setIsStreaming: (value: boolean) => void;
+  handleChangeSearch: any;
+  timerRef: any;
 }
 export default function Search(props: props) {
   return (
-    <SearchSt onSubmit={(e) => props.fetchStreamingText(e)}>
+    <SearchSt 
+//     onSubmit={(e) => props.fetchStreamingText(e)}
+    >
       <p className="title">ProducerGO</p>
       <div className="search_container">
         <div className="container_icon_input">
@@ -130,14 +134,18 @@ export default function Search(props: props) {
             className="seach_input"
             type="text"
             name="search"
-            value={props.search}
-            onChange={(e) => props.setSearch(e.currentTarget.value)}
+        //     value={props.search}
+            onChange={(e) =>
+              //     props.setSearch(e.currentTarget.value)
+              props.handleChangeSearch(e)
+            }
             placeholder="Buscar..."
             onFocus={(e) => e.currentTarget.select()}
+            ref={props.timerRef}
             //     required
           />
         </div>
-        <select
+        {/* <select
           className="box_select"
           name="indexDate"
           //   value={props.date}
@@ -152,8 +160,8 @@ export default function Search(props: props) {
               {i.name}
             </option>
           ))}
-        </select>
-        <select
+        </select> */}
+        {/* <select
           className="box_select"
           name="indexDate"
           //   value={props.quantity}
@@ -182,7 +190,7 @@ export default function Search(props: props) {
           <option className="box_option" value="NC-17">
             NC-17
           </option>
-        </select>
+        </select> */}
 
         {/* <button className="button_prediction" type="submit">
           Relizar predicción
