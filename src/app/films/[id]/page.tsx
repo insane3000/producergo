@@ -106,13 +106,13 @@ export default function Page() {
     }
   };
 
+  useEffect(() => {
+    film && fetchStreamingText();
+  }, []);
+
   if (!film) {
     return <div>error</div>;
   }
-
-  useEffect(() => {
-    fetchStreamingText();
-  }, []);
 
   return (
     <FilmSt>

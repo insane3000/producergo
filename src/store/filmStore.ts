@@ -9,7 +9,6 @@ interface FilmStoreIT {
 export const useFilmStore = create<FilmStoreIT>((set) => ({
   film: {
     id: 0,
-    imdb_id: "",
     poster_path: "",
     title: "",
     original_title: "",
@@ -18,7 +17,9 @@ export const useFilmStore = create<FilmStoreIT>((set) => ({
     revenue: 0,
     certification: "",
     folder: "",
-    keywords: "",
+    tagline: "",
+    runtime: 0,
+    vote_average: 0,
   },
   setFilm: (data: FilmIT) => set((state: FilmStoreIT) => ({ ...state, film: data })),
 }));
