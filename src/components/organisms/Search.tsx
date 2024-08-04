@@ -18,12 +18,12 @@ const SearchSt = styled.form`
     height: 2rem;
     /* margin-bottom: 1rem; */
     display: grid;
-    grid-template-columns: calc(100% - 5.5rem) 5rem;
+    grid-template-columns: calc(100% - 8.5rem) 8rem;
     grid-template-rows: 2rem;
     gap: 0.5rem;
     /* margin-bottom: 1rem; */
     .container_icon_input {
-      background: #0a0a0a;
+        background: #27272a;
       border: 1px solid #2c2c2c;
       border-radius: 0.25rem;
       display: grid;
@@ -37,6 +37,7 @@ const SearchSt = styled.form`
         color: #9e9e9e;
       }
       .seach_input {
+       
         font-family: var(--motiva400);
         font-size: 0.75rem;
         color: #ffffff;

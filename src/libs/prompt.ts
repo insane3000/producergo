@@ -1,19 +1,24 @@
-export const prompt = (values: any, quantity: number) => {
+import { FilmIT } from "@/json/data";
+import { performance } from "./performance";
+
+export const word = (percentage: number) => {
+  switch (true) {
+    case percentage > 0 && percentage < 100:
+      return "mal rendimiento";
+    case percentage > 100 && percentage < 200:
+      return "rendimiento moderado ";
+    case percentage > 300:
+      return "buen rendimiento";
+    default:
+      return "mal rendimiento";
+  }
+};
+export const prompt = (film: FilmIT | undefined) => {
+  const percentage = performance(film?.budget || 0, film?.revenue || 0);
+
   return `
-  Basado en los datos históricos del siguiente JSON ${JSON.stringify(
-    values
-  )}, realiza un análisis técnico para predecir los próximos ${quantity} valores de cierre. El análisis debe considerar tendencias, patrones y cualquier indicador relevante que puedas identificar. Devuélveme los resultados en objetos dentro de un array en el siguiente formato JSON:
-[
-    {
-        "timestamp": "12:50:00",
-        "close": 0
-    },
-    {
-        "timestamp": "12:55:00",
-        "close": 0
-    },
-    // ... agrega los ${quantity - 2} objetos resultantes
-]
-Asegúrate de que el JSON resultante esté bien formateado y que los timestamps sean consistentes en intervalos de 5 minutos. Si no se puede predecir un valor, usa null para el campo "close". 
-`;
+  Por que el ${word(percentage)} financiero de la película ${film?.title} de ${new Date(film?.date || 0).getFullYear()},
+  teniendo en cuenta que su presupuesto fue ${film?.budget} USD y su recaudacion fue ${film?.revenue} USD?
+  Asegúrate de responder en español.
+  `;
 };

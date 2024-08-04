@@ -74,8 +74,8 @@ export default function Page() {
       (i) =>
         i.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
         i.original_title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
-        i.folder.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
-        i.keywords.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+        i.folder.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+      // i.keywords.toLocaleLowerCase().includes(search.toLocaleLowerCase())
     );
     e.preventDefault();
     setPage(2);
@@ -89,8 +89,8 @@ export default function Page() {
       (i) =>
         i.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
         i.original_title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
-        i.folder.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
-        i.keywords.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+        i.folder.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+      // i.keywords.toLocaleLowerCase().includes(search.toLocaleLowerCase())
     );
     const paginated_data = filtered.slice((page_number - 1) * page_size, page_number * page_size);
     setCurrentData([...currentData, ...paginated_data]);
@@ -119,7 +119,7 @@ export default function Page() {
         {currentData.map((i) => (
           <Film key={i.id} film={i} currentData={currentData} />
         ))}
-        {<div ref={ref}>cargar mas</div>}
+        {<div ref={ref} style={{ width: "100%", height: "2rem" }}></div>}
       </div>
       <Toaster style={{ fontFamily: "var(--motiva400)" }} />
     </HomeSt>

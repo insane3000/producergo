@@ -9,6 +9,8 @@ body {
   height: auto;
   background: #09090b;
   overflow-y: scroll;
+  font-family: var(--motiva400);
+  color: white;
 }
 .layout {
   margin: auto;

@@ -199,11 +199,12 @@ const FilmSt = styled.div`
           border-radius: 0.25rem;
           outline: none;
           font-family: var(--motiva500);
-          font-size: 0.75rem;
+          font-size: 0.65rem;
           color: #d0d0d0;
           transition: 0.1s;
           cursor: default;
           text-decoration: none;
+          user-select: none;
           &:hover {
             transition: 0.1s;
             background: #19191e;
@@ -230,9 +231,7 @@ export default function Film(props: props) {
   const router = useRouter();
   const { apiKey, setApiKey, modelInput, setModelInput } = useApiKeyStore((state) => state);
   const { film, setFilm } = useFilmStore((state) => state);
-  useEffect(() => {
-    console.log("asdsad");
-  }, []);
+
   return (
     <FilmSt>
       <div className="data_gradient"></div>
