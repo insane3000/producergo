@@ -14,9 +14,28 @@ import { data, FilmIT } from "@/json/data";
 import { extractJSON } from "@/libs/extractJSON";
 import Film from "@/components/organisms/Film";
 import styled from "styled-components";
+import { useInView } from "react-intersection-observer";
+import { Outlet } from "react-router-dom";
 const HomeSt = styled.div`
   width: 100%;
   height: auto;
+  .header {
+    width: 100%;
+    height: auto;
+    background: #09090B;
+ 
+    position: sticky;
+    top: 0rem;
+    z-index: 1;
+    .border_spacer_top {
+      width: 100%;
+      height: 2rem;
+    }
+    .border_spacer_bottom {
+      width: 100%;
+      height: 1rem;
+    }
+  }
   .loader {
     width: 100%;
     height: 100%;
@@ -40,7 +59,7 @@ const TemporalSt = styled.div`
   grid-template-columns: 100%;
   grid-auto-rows: max-content;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   /* overflow-y: scroll; */
   // !Scroll style
   scrollbar-color: #4d4d4d69 transparent;
@@ -136,32 +155,43 @@ export default function Home() {
     }, 500);
   };
 
-//   console.log(page);
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 0,
+    rootMargin: "10px 20px 500px 40px",
+  });
+
+  useEffect(() => {
+    inView && paginateFilms(filtered, 10, page);
+  }, [inView]);
 
   return (
     <HomeSt>
-      <APIKey apiKey={apiKey} setApiKey={setApiKey} modelInput={modelInput} setModelInput={setModelInput} />
-      <Search
-        search={search}
-        setSearch={setSearch}
-        fetchStreamingText={fetchStreamingText}
-        setIsStreaming={setIsStreaming}
-        handleChangeSearch={handleChangeSearch}
-        timerRef={timerRef}
-      />
+      <div className="header">
+        <div className="border_spacer_top"></div>
+        <APIKey apiKey={apiKey} setApiKey={setApiKey} modelInput={modelInput} setModelInput={setModelInput} />
+        <Search
+          search={search}
+          setSearch={setSearch}
+          fetchStreamingText={fetchStreamingText}
+          setIsStreaming={setIsStreaming}
+          handleChangeSearch={handleChangeSearch}
+          timerRef={timerRef}
+        />
+        <div className="border_spacer_bottom"></div>
+      </div>
       {/* <Chart response={response} isStreaming={isStreaming} /> */}
 
       <TemporalSt>
         {currentData.map((i) => (
           <Film key={i.id} film={i} currentData={currentData} />
         ))}
-        {Math.ceil(filtered.length / limit) > page - 1 && (
-          <button onClick={() => paginateFilms(filtered, 10, page)}>cargar mas</button>
-        )}
+        {Math.ceil(filtered.length / limit) > page - 1 && <div ref={ref}>cargar mas</div>}
       </TemporalSt>
       {/* <Logs response={response} textAreaRef={textAreaRef} /> */}
       {/* <Ad /> */}
       {/* <Toaster style={{ fontFamily: "var(--motiva400)" }} /> */}
+      <Outlet />
       {spinner && (
         <div className="loader">
           <Spinner />

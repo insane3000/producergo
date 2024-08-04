@@ -7,7 +7,7 @@ import styled from "styled-components";
 const APIKeySt = styled.div`
   width: 100%;
   height: auto;
-  margin-top: 2rem;
+ 
   .title {
     font-family: var(--motiva700);
     font-size: 0.9rem;

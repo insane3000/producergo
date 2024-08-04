@@ -1,8 +1,14 @@
 import { data, FilmIT } from "@/json/data";
 import { findBigNumber } from "@/libs/findBigNumber";
 import { performance } from "@/libs/performance";
-import React from "react";
+import { useApiKeyStore } from "@/store/apiKeyStore";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+import React, { useEffect } from "react";
 import { FaLongArrowAltDown, FaLongArrowAltUp } from "react-icons/fa";
+import { toast } from "sonner";
+
 import styled from "styled-components";
 
 const FilmSt = styled.div`
@@ -161,9 +167,12 @@ const FilmSt = styled.div`
           overflow: hidden;
         }
         .date {
+          width: 100%;
           font-family: var(--motiva400);
           font-size: 0.6rem;
           color: #767676;
+          display: flex;
+          gap: 0.5rem;
         }
       }
 
@@ -177,6 +186,7 @@ const FilmSt = styled.div`
         justify-content: center;
         align-content: center;
         padding: 0 0.5rem;
+        text-decoration: none;
         .button {
           width: 100%;
           height: 100%;
@@ -192,7 +202,7 @@ const FilmSt = styled.div`
           color: #d0d0d0;
           transition: 0.1s;
           cursor: default;
-
+          text-decoration: none;
           &:hover {
             transition: 0.1s;
             background: #19191e;
@@ -216,6 +226,11 @@ interface props {
   currentData: FilmIT[];
 }
 export default function Film(props: props) {
+  const router = useRouter();
+  const { apiKey, setApiKey, modelInput, setModelInput } = useApiKeyStore((state) => state);
+  useEffect(() => {
+    console.log("asdsad");
+  }, []);
   return (
     <FilmSt>
       <div className="data_gradient"></div>
@@ -292,16 +307,29 @@ export default function Film(props: props) {
             <div className="date">
               {new Date(props.film.date).toLocaleString("es-MX", {
                 year: "numeric",
-                month: "short",
-                weekday: "short",
-                day: "numeric",
+                // month: "short",
+                // weekday: "short",
+                // day: "numeric",
               })}
+              <div></div>
+              {props.film.certification}
             </div>
           </div>
 
           <div className="buttons_container">
             {/* <div className="button">Similares</div> */}
-            <div className="button white">Analizar con IA</div>
+            <div
+              className="button white"
+              onClick={() => {
+                if (apiKey.length === 0) {
+                  toast("Debes introducir tu Perplexity API Key");
+                  return;
+                }
+                router.push(`/app/${props.film.id}`);
+              }}
+            >
+              Analizar con IA
+            </div>
           </div>
         </div>
       </div>

@@ -9472,7 +9472,7 @@ export const data: FilmIT[] = [
     certification: "PG-13",
     folder: "msc-ciencia-ficcion",
     keywords:
-      "marvel, hero, superhero, space travel, based on comic, sequel, teenage girl, aftercreditsstinger, duringcreditsstinger, marvel cinematic universe (mcu), space adventure",
+      "hero, superhero, space travel, based on comic, sequel, teenage girl, aftercreditsstinger, duringcreditsstinger, marvel cinematic universe (mcu), space adventure",
   },
   {
     id: 919,
