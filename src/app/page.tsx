@@ -24,7 +24,7 @@ export default function page() {
               height={250}
             />
           </Link> */}
-          <Link className={styles.button_link} href="/app">
+          <Link className={styles.button_link} href="/films">
             Empezar
           </Link>
         </div>

@@ -2,6 +2,7 @@ import { data, FilmIT } from "@/json/data";
 import { findBigNumber } from "@/libs/findBigNumber";
 import { performance } from "@/libs/performance";
 import { useApiKeyStore } from "@/store/apiKeyStore";
+import { useFilmStore } from "@/store/filmStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -228,6 +229,7 @@ interface props {
 export default function Film(props: props) {
   const router = useRouter();
   const { apiKey, setApiKey, modelInput, setModelInput } = useApiKeyStore((state) => state);
+  const { film, setFilm } = useFilmStore((state) => state);
   useEffect(() => {
     console.log("asdsad");
   }, []);
@@ -325,7 +327,8 @@ export default function Film(props: props) {
                   toast("Debes introducir tu Perplexity API Key");
                   return;
                 }
-                router.push(`/app/${props.film.id}`);
+                router.push(`/films/${props.film.id}`);
+                setFilm(props.film);
               }}
             >
               Analizar con IA

@@ -7,10 +7,11 @@ import { useParams } from "next/navigation";
 // import React, { useRef, useState } from "react";
 // import { toast, Toaster } from "sonner";
 import { data } from "@/json/data";
+import { useFilmStore } from "@/store/filmStore";
 export default function Page() {
   const params = useParams();
-
-  const film = data.find((i) => i.id === +params.id);
+  const { film, setFilm } = useFilmStore((state) => state);
+//   const film = data.find((i) => i.id === +params.id);
 
 //   const { apiKey, modelInput } = useApiKeyStore((state) => state);
 
@@ -57,7 +58,7 @@ export default function Page() {
 
   return (
     <div>
-      <img src={`https://pub-fe6741d421e5441ebc311462671105e8.r2.dev/backdrops/w1920/${film?.poster_path}`} alt="" />
+      <img src={`https://pub-fe6741d421e5441ebc311462671105e8.r2.dev/backdrops/w960/${film?.poster_path}`} alt="" />
       {params.id}
       {/* <Toaster style={{ fontFamily: "var(--motiva400)" }} /> */}
     </div>
