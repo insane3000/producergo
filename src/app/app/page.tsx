@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Search from "@/components/organisms/Search";
 import APIKey from "@/components/organisms/APIKey";
 import { data } from "@/json/data";
@@ -55,7 +55,7 @@ const HomeSt = styled.div`
   }
 `;
 
-export default function page() {
+export default function Page() {
   const { currentData, setCurrentData } = useCurrentDataStore((state) => state);
   const { search, setSearch } = useSearchStore((state) => state);
   const { page, setPage } = usePageStore((state) => state);
