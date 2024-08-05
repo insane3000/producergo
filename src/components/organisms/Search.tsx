@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import { IoMdAdd } from "react-icons/io";
+import { IoMdAdd, IoMdRefresh } from "react-icons/io";
 import styled from "styled-components";
 import folders from "../../json/folders.json";
 const SearchSt = styled.form`
@@ -18,12 +18,12 @@ const SearchSt = styled.form`
     height: 2rem;
     /* margin-bottom: 1rem; */
     display: grid;
-    grid-template-columns: calc(100% - 8.5rem) 8rem;
+    grid-template-columns: calc(100% - 11rem) 2rem 8rem;
     grid-template-rows: 2rem;
     gap: 0.5rem;
     /* margin-bottom: 1rem; */
     .container_icon_input {
-        background: #27272a;
+      background: #27272a;
       border: 1px solid #2c2c2c;
       border-radius: 0.25rem;
       display: grid;
@@ -37,7 +37,6 @@ const SearchSt = styled.form`
         color: #9e9e9e;
       }
       .seach_input {
-       
         font-family: var(--motiva400);
         font-size: 0.75rem;
         color: #ffffff;
@@ -97,6 +96,26 @@ const SearchSt = styled.form`
         background: #19191e;
       }
     }
+    .refresh_button {
+      border-radius: 0.25rem;
+      background: #27272a;
+      border: 1px solid #2c2c2c;
+      color: #cbcbcb;
+      padding: 0.3rem;
+      transition: 0.1s;
+      &:hover {
+        transition: 0.1s;
+        background: #171717;
+        .sysIconRefresh {
+          color: white;
+        }
+      }
+      .sysIconRefresh {
+        width: 100%;
+        height: 100%;
+        color: #a7a7a7;
+      }
+    }
     .button_search {
       /* border: 1px solid #2662d9; */
       background: #ffffff;
@@ -120,6 +139,7 @@ interface props {
   search: string;
   setSearch: (key: string) => void;
   handleSearch: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleReset: () => void;
 }
 export default function Search(props: props) {
   return (
@@ -141,6 +161,15 @@ export default function Search(props: props) {
             placeholder="Buscar..."
             onFocus={(e) => e.currentTarget.select()}
           />
+        </div>
+        <div
+          className="refresh_button"
+          onClick={() => {
+            props.handleReset();
+            props.setSearch("");
+          }}
+        >
+          <IoMdRefresh className="sysIconRefresh" />
         </div>
         <button className="button_search" type="submit">
           Buscar

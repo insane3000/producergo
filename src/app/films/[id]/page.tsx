@@ -19,6 +19,7 @@ import { useEffect, useRef, useState } from "react";
 import { createOpenAI } from "@ai-sdk/openai";
 import { prompt, word } from "@/libs/prompt";
 import { performance } from "@/libs/performance";
+import Error from "@/components/atoms/Error";
 
 const FilmSt = styled.div`
   width: 100%;
@@ -112,12 +113,8 @@ export default function Page() {
   };
 
   useEffect(() => {
-    film && fetchStreamingText();
+    if (film && apiKey !== "") fetchStreamingText();
   }, []);
-
-  if (!film) {
-    return <div>error</div>;
-  }
 
   function insertH2(texto: string) {
     // Expresión regular para encontrar texto entre ** y opcionalmente un número antes, incluyendo :
@@ -129,7 +126,9 @@ export default function Page() {
     });
     return result;
   }
-
+  if (!film) {
+    return <Error />;
+  }
   return (
     <FilmSt>
       <Banner

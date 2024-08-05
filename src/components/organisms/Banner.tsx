@@ -9,7 +9,7 @@ import { toHour } from "@/libs/toHour";
 
 const BannerSt = styled.div`
   width: 100%;
-  height: 30rem;
+  height: 25rem;
   background: #09090b;
   position: relative;
   display: flex;

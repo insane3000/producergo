@@ -83,6 +83,12 @@ export default function Page() {
     setCurrentData(paginated_data);
     window.scrollTo(0, 0);
   };
+  const handleReset = () => {
+    setPage(2);
+    const paginated_data = data.slice(0 * limit, 1 * limit);
+    setCurrentData(paginated_data);
+    window.scrollTo(0, 0);
+  };
 
   function paginateFilms(page_size: number, page_number: number) {
     const filtered = data.filter(
@@ -112,7 +118,7 @@ export default function Page() {
       <div className="header">
         <div className="border_spacer_top"></div>
         <APIKey apiKey={apiKey} setApiKey={setApiKey} modelInput={modelInput} setModelInput={setModelInput} />
-        <Search search={search} setSearch={setSearch} handleSearch={handleSearch} />
+        <Search search={search} setSearch={setSearch} handleSearch={handleSearch} handleReset={handleReset} />
         <div className="border_spacer_bottom"></div>
       </div>
       <div className="film_container">

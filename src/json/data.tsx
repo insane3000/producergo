@@ -1,6 +1,5 @@
 export type FilmIT = {
   id: number;
-  //   imdb_id: string;
   poster_path: string;
   title: string;
   original_title: string;
@@ -9,7 +8,6 @@ export type FilmIT = {
   revenue: number;
   certification: string;
   folder: string;
-  //   keywords: string;
   tagline: string;
   runtime: number;
   vote_average: number;
@@ -9406,7 +9404,7 @@ export const data: FilmIT[] = [
     original_title: "Deadpool & Wolverine",
     date: "2024-07-24",
     budget: 200000000,
-    revenue: 211100000,
+    revenue: 1211100000,
     certification: "R",
     folder: "msc-ciencia-ficcion",
     tagline: "Acabaron juntos.",
