@@ -17,7 +17,7 @@ export const prompt = (film: FilmIT | undefined) => {
   const percentage = performance(film?.budget || 0, film?.revenue || 0);
 
   return `
-  Por que el ${word(percentage)} financiero de la película ${film?.title} de ${new Date(film?.date || 0).getFullYear()},
+  Razones por el ${word(percentage)} financiero de la película ${film?.title} de ${new Date(film?.date || 0).getFullYear()},
   teniendo en cuenta que su presupuesto fue ${film?.budget} USD y su recaudacion fue ${film?.revenue} USD?
   Asegúrate de responder en español.
   `;

@@ -53,11 +53,16 @@ const FilmSt = styled.div`
     .data {
       width: 100%;
       height: auto;
-      white-space: pre-wrap;
-      font-family: var(--motiva400);
-      font-size: 1rem;
-      color: #dddddd;
+      white-space: normal;
+      font-family: var(--motiva300);
+      font-size: 0.9rem;
+      color: #d6d6d6;
       margin-top: 1rem;
+      h2 {
+        font-family: var(--motiva400);
+        margin-top: 1rem;
+        color: #dddddd;
+      }
     }
   }
 `;
@@ -114,6 +119,17 @@ export default function Page() {
     return <div>error</div>;
   }
 
+  function insertH2(texto: string) {
+    // Expresión regular para encontrar texto entre ** y opcionalmente un número antes, incluyendo :
+    const regex = /(\d+\.\s*)?\*\*(.*?)\*\*(:?)/g;
+
+    // Reemplazar las coincidencias con el formato deseado, manteniendo el resto del texto
+    const result = texto.replace(regex, (match: string, numero: string, contenido: string, dosPuntos: string) => {
+      return `<h2>${numero ? numero : ""}${contenido}${dosPuntos}</h2>`;
+    });
+    return result;
+  }
+
   return (
     <FilmSt>
       <Banner
@@ -131,10 +147,15 @@ export default function Page() {
       {/* <Logs response={response} textAreaRef={textAreaRef} /> */}
       <div className="response">
         <h1 className="title_prompt">
-          ¿Por que el {word(performance(film?.budget || 0, film?.revenue || 0))} financiero de la película {film?.title}{" "}
-          de {new Date(film?.date || 0).getFullYear()}?
+          Razones por el {word(performance(film?.budget || 0, film?.revenue || 0))} financiero de la película{" "}
+          {film?.title} de {new Date(film?.date || 0).getFullYear()}
         </h1>
-        <div className="data">{response}</div>
+        <div
+          className="data"
+          dangerouslySetInnerHTML={{
+            __html: insertH2(response),
+          }}
+        ></div>
       </div>
 
       <Toaster style={{ fontFamily: "var(--motiva400)" }} />
